@@ -1,7 +1,7 @@
 # Open Imagery
 
 <p align="center">
-  <img src="resources/readme-banner.jpg" alt="Open Imagery Banner" width="800">
+  <img src="resources/img113.png" alt="Open Imagery Banner" width="800">
 </p>
 
 <p align="center">
@@ -56,7 +56,7 @@
 Whether extracting a 200-meter street corridor for visual navigation, generating an orthorectified satellite mosaic for GIS modeling, downloading textured 3D glTF building blocks, or packaging full terrain elevation rasters, Open Imagery operates directly without requiring cloud subscriptions or proprietary API keys.
 
 <p align="center">
-  <img src="resources/img112.jpg" alt="Open Imagery Overview & Capabilities" width="800">
+  <img src="resources/114.jpg" alt="Open Imagery Overview & Capabilities" width="800">
 </p>
 
 ---
