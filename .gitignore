@@ -5,6 +5,7 @@ __pycache__/
 aleph-*/
 open-imagery-*/
 captures/
+uv.lock
 .DS_Store
 build/
 dist/
