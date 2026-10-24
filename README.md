@@ -1,7 +1,7 @@
 # Open Imagery
 
 <p align="center">
-  <img src="resources/readme-banner.svg" alt="Open Imagery" width="400">
+  <img src="resources/readme-banner.jpg" alt="Open Imagery Banner" width="800">
 </p>
 
 <p align="center">
