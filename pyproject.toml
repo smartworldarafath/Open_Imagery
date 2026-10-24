@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "open-imagery"
+version = "0.2.0"
+description = "Capture Street View photos, high-resolution satellite imagery, 3D meshes, and OpenStreetMap data."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    {name = "Arafath", email = "smartworld.bd.710@gmail.com"}
+]
+dependencies = ["Pillow>=10", "numpy>=1.25"]
+
+[project.urls]
+Homepage = "https://github.com/smartworldarafath/Open_Imagery"
+Repository = "https://github.com/smartworldarafath/Open_Imagery"
+
+[project.scripts]
+openimagery = "open_imagery:main"
+open-imagery = "open_imagery:main"
+alephgeo = "open_imagery:main"
+
+[tool.setuptools]
+py-modules = ["open_imagery", "aleph"]
+packages = ["src"]
+
+[tool.setuptools.package-data]
+src = ["web/*", "web/icons/*"]

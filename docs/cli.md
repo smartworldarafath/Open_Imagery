@@ -1,0 +1,134 @@
+# Open Imagery CLI Guide
+
+[Install Open Imagery](../README.md#installation--setup)
+
+The CLI commands are accessible via `openimagery` (aliases `open-imagery` and `alephgeo` are also supported).
+
+## Download a Photo or Satellite Image
+
+```sh
+# Street View near a named place
+openimagery streetview --place "Colosseum, Rome" --best-match -o captures
+
+# A satellite image covering a 200 × 200 meter square
+openimagery satellite --place "Colosseum, Rome" --best-match --size 200 -o captures
+```
+
+- `--best-match` picks the first search result. Omit it to list matches, then choose with `--match TYPE/ID`.
+- `-o captures` saves downloads under `captures/` instead of the current directory.
+- Satellite captures produce `satellite.png` and `satellite.tif` (lossless Cloud Optimized GeoTIFF), with transparent gaps for missing imagery.
+- `--tile-format jpg|png` sets the saved satellite tile format (default: `jpg`); both merged outputs are always generated.
+- `--streetview-format jpg|png` sets the Street View photo format (default: `jpg`).
+- `--full-sphere` saves one 360° panorama per stop. `--sphere-zoom 0–5` sets resolution (default: `3`).
+
+These options also work with `capture create`.
+
+## Use Coordinates
+
+Coordinates are specified as `LAT LON`; distances are in meters.
+
+```sh
+# Street View facing east (0 = north, 90 = east, 180 = south, 270 = west)
+openimagery streetview --at 41.8902 12.4922 --heading 90 -o captures
+
+# Aim the camera at a specific point
+openimagery streetview --at 41.8902 12.4922 --look-at 41.8903 12.4924 -o captures
+
+# Satellite image around a point
+openimagery satellite --at 41.8902 12.4922 --size 500 -o captures
+
+# Satellite image of a rectangle: south west north east
+openimagery satellite --bbox 41.8895 12.4910 41.8910 12.4940 -o captures
+```
+
+Street View searches within 50 meters by default; use `--radius 200` to search farther.
+
+## Find Places & Geocode
+
+```sh
+# Look up a name and its coordinates
+openimagery resolve "Colosseum, Rome"
+
+# Find the address or place at these coordinates
+openimagery resolve --at 41.8902 12.4922
+
+# List nearby points of interest
+openimagery resolve --at 41.8902 12.4922 --nearby --radius 200
+```
+
+## Take Photos Along a Street
+
+```sh
+# Ten stops total, looking forward
+openimagery streetview --street "Via del Corso, Rome" --best-match --stops 10 -o captures
+
+# Both sides, targeting 10-meter spacing
+openimagery streetview --street "Via del Corso, Rome" --best-match --step 10 --view both -o captures
+```
+
+Use `--stops N` for a total count or `--step METERS` for spacing. All street sections are included; `--route N` selects one by its number in `result.json`.
+
+`--view` accepts `forward`, `backward`, `left`, `right`, or `both`. Add `--reverse` to reverse each section's direction.
+
+## Download an Area
+
+Capture Street View, satellite imagery, OSM data, and terrain inside a rectangle:
+
+```sh
+openimagery capture create --bbox 41.8895 12.4910 41.8910 12.4940 -o captures
+```
+
+The command shows an estimate and asks before downloading. Add `--yes` to skip the prompt, or `--plan` to save a plan for later.
+
+To capture any other arbitrary polygon, use `--polygon` with its corners in order as `LAT LON` pairs:
+
+```sh
+openimagery capture create --polygon 41.8895 12.4910 41.8910 12.4915 41.8905 12.4940 41.8893 12.4932 -o captures
+```
+
+Street View, satellite imagery, OSM data, and the 3D mesh stay strictly inside the polygon; satellite pixels outside it are masked transparent. Terrain covers its bounding box. Edges must not cross.
+
+Use `--sources` to select `streetview`, `satellite`, `osm`, or `terrain`, or any combination. These four are the default.
+
+Add `mesh` for Google Earth's textured 3D photogrammetric model of the area, saved as `mesh.glb`:
+
+```sh
+openimagery capture create --bbox 41.8895 12.4910 41.8910 12.4940 --sources mesh satellite -o captures
+```
+
+`--mesh-level 1–22` sets the detail level (default: `21`). Each level halves the texel size; `22` is the most detailed (about 4 cm per texel) and needs about four times as many downloads as `21`. Coordinates in `mesh.glb` are meters from the center of the area's bounding box: x east, y up, z south, with the lowest point at y = 0. The file is split into objects of up to 64 tiles, and each tile keeps its original texture.
+
+Resume a capture or start a saved plan using its printed run folder:
+
+```sh
+openimagery capture resume captures/RUN_FOLDER
+```
+
+Rebuild outputs from downloaded files, offline:
+
+```sh
+openimagery capture export captures/RUN_FOLDER
+```
+
+## Open the Web Dashboard
+
+```sh
+openimagery dashboard -o captures
+```
+
+It lists all captures in `captures`, including ones initiated with `capture create`, and can resume stopped ones.
+- `--port` changes the local port (default: `8100`)
+- `--no-browser` skips opening a tab automatically
+
+Quitting while a capture runs pauses it gracefully so it can be resumed later.
+
+## Automation & Scripting
+
+Add `--json` for one JSON result on stdout; progress stays on stderr.
+
+```sh
+openimagery satellite --at 41.8902 12.4922 -o captures --json > result.json
+openimagery capture create --bbox 41.8895 12.4910 41.8910 12.4940 -o captures --yes --json
+```
+
+For all available options, run `openimagery COMMAND --help`, such as `openimagery capture create --help`.

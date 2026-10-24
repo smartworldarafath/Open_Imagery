@@ -1,0 +1,28 @@
+name: Jules Maintenance Agent
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # Every day at 4 AM UTC
+  workflow_dispatch:
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Jules Autonomous Maintenance
+        uses: google-labs-code/jules-invoke@v1
+        with:
+          prompt: |
+            You are a repository maintenance agent for Open Imagery.
+            1. Audit codebase health, tests, and dependencies.
+            2. Verify Python unit test suite passes with unittest.
+            3. Optimize code paths and documentation where appropriate.
+            4. Submit pull requests with clear documentation for any proposed improvements.
+          jules_api_key: ${{ secrets.JULES_API_KEY }}

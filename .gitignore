@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+aleph-*/
+open-imagery-*/
+captures/
+.DS_Store
+build/
+dist/
+*.egg-info/
