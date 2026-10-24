@@ -1,6 +1,10 @@
 # Open Imagery
 
 <p align="center">
+  <img src="resources/readme-banner.svg" alt="Open Imagery" width="400">
+</p>
+
+<p align="center">
   <strong>Download high-resolution satellite imagery, 360° Street View panoramas, Google Earth 3D meshes, digital elevation models, and OpenStreetMap data for humans, AI agents, and LLMs — zero API keys required.</strong>
 </p>
 
@@ -10,6 +14,10 @@
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/Python-3.11+-orange.svg" alt="Python 3.11+"></a>
   <a href="#contributors--acknowledgments"><img src="https://img.shields.io/badge/Maintained%20by-Arafath-purple.svg" alt="Maintained by Arafath"></a>
   <a href="#contributors--acknowledgments"><img src="https://img.shields.io/badge/AI%20Automation-Google%20Jules-blueviolet.svg" alt="Google Jules"></a>
+</p>
+
+<p align="center">
+  <img src="resources/demo.webp" alt="Open Imagery Dashboard in action: capturing Colosseum, 3D meshes of Eiffel Tower, Sydney Opera House, and Matterhorn" width="800">
 </p>
 
 ---
@@ -46,6 +54,10 @@
 **Open Imagery** is a lightweight, zero-configuration geospatial acquisition toolkit and pipeline. It enables developers, spatial data engineers, and autonomous AI agents to ingest high-fidelity data from the physical world. 
 
 Whether extracting a 200-meter street corridor for visual navigation, generating an orthorectified satellite mosaic for GIS modeling, downloading textured 3D glTF building blocks, or packaging full terrain elevation rasters, Open Imagery operates directly without requiring cloud subscriptions or proprietary API keys.
+
+<p align="center">
+  <img src="resources/img112.jpg" alt="Open Imagery Overview & Capabilities" width="800">
+</p>
 
 ---
 
